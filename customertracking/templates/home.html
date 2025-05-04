@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+    {% block content %}
+        {% for customer in customers %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+                <h1>{{customer.Name}}</h1>
+                <p>Υπόλοιπο {{customer.Balance}}€</p>
+        </div>
+        </article>
+        {% endfor %}
+    {% endblock content %}
