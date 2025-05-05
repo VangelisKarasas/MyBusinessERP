@@ -17,6 +17,23 @@ customers = [
     }
 ]
 
+tasks = [
+    {
+        'id': '1',
+        'Name': 'Κώστας Παπαδημητρίου',
+        'Description': 'Τοποθέτηση μαρμάρων 30μ',
+        'Cost': '1200',
+        'Completion_date': '5/5/2025'
+    },
+    {
+        'id': '2',
+        'Name': 'Γιώργος Αντωνίου',
+        'Description': 'Τοποθέτηση πλακάκια 30 τ.μ',
+        'Cost': '1000',
+        'Completion_date': '2/5/2025'
+    }
+]
+
 
 @app.route("/")
 @app.route("/home")
@@ -78,3 +95,9 @@ def account():
 @login_required
 def customer_list():
     return render_template('customer_list.html', customers=customers)
+
+
+@app.route("/tasks")
+@login_required
+def task_list():
+    return render_template('task_list.html', tasks=tasks)
