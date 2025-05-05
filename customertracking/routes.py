@@ -1,7 +1,8 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request
 from customertracking import app, db, bcrypt
 from customertracking.forms import RegistrationForm, LoginForm
 from customertracking.models import User, Customer
+from flask_login import login_user, current_user, logout_user, login_required
 
 customers = [
     {
@@ -30,6 +31,8 @@ def about():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(
@@ -46,10 +49,32 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Έχεις συνδεθεί επιτυχώς', 'success')
+    if current_user.is_authenticated:
         return redirect(url_for('home'))
+    form = LoginForm()
+    user = User.query.filter_by(email=form.email.data).first()
+    if user and bcrypt.check_password_hash(user.password, form.password.data):
+        login_user(user, remember=form.remember.data)
+        next_page = request.args.get('next')
+        return redirect(next_page) if next_page else redirect(url_for('home'))
     else:
-        flash('Αποτυχία σύνδεσης', 'danger')
-    return render_template('login.html', title='Σύνδεση', form=form)
+        #     flash('Αποτυχία σύνδεσης', 'danger')
+        return render_template('login.html', title='Σύνδεση', form=form)
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+
+@app.route("/account")
+@login_required
+def account():
+    return render_template('account.html', title='Λογαριασμός')
+
+
+@app.route("/customers")
+@login_required
+def customer_list():
+    return render_template('customer_list.html', customers=customers)
