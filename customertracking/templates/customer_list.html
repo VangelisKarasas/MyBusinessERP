@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+        <ul>
+        {% for customer in customers %}
+            <li>
+            <strong>Name:</strong> {{ customer.Name }}<br>
+            <strong>Email:</strong> {{ customer.Adress }}<br>
+            <strong>Total Balance:</strong> {{ customer.Balance }}
+            </li>
+        {% endfor %}
+        </ul>
+{% endblock content %}
