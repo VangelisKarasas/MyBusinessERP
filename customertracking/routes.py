@@ -34,6 +34,23 @@ tasks = [
     }
 ]
 
+last_sales = [{
+    'id': 1,
+    'Document_code': 'ΤΔΑ-Α-000001',
+    'Document_date': '01-01-2025',
+    'Total_amount': 1240,
+    'Net_value': 1000,
+    'Vat_amount': 240
+},
+    {
+    'id': 2,
+    'Document_code': 'ΤΔΑ-Α-000002',
+    'Document_date': '01-02-2025',
+    'Total_amount': 124,
+    'Net_value': 100,
+    'Vat_amount': 24
+}]
+
 
 @app.route("/")
 @app.route("/home")
@@ -101,3 +118,9 @@ def customer_list():
 @login_required
 def task_list():
     return render_template('task_list.html', tasks=tasks)
+
+
+@app.route("/customer_account/ΚώσταςΠαπαδημητρίου")
+@login_required
+def customer_account():
+    return render_template('customer_account.html', last_sales=last_sales)
