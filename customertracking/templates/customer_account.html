@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Κώστας Παπαδημητρίου</h1>
+    <h3>ΑΦΜ:5392145</h3>
+    <h3>Email:k.pap@gmail.com</h3>
+    <p>&nbsp;&nbsp;</p>
+    <table class="table table-hover">
+            <thead>
+                <tr class="bg-light">
+                    <th scope="col">Παραστατικό</th>
+                    <th scope="col">Ημερομηνία</th>
+                    <th scope="col">Συνολικό ποσό</th>
+                    <th scope="col">Καθαρή Αξία</th>
+                    <th scope="col">Αξία Φ.Π.Α</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for last_sale in last_sales %}
+                <tr class="table-light">
+                    <td>{{ last_sale.Document_code }}</td>
+                    <td>{{ last_sale.Document_date }}</td>
+                    <td>{{ last_sale.Total_amount }}</td>
+                    <td>{{ last_sale.Net_value }}</td>
+                    <td>{{ last_sale.Vat_amount }}</td>
+                </tr>
+                {% endfor %}       
+            </tbody>
+        </table>
+{% endblock content %}
