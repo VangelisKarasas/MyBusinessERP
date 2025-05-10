@@ -1,12 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
-        <ul>
-        {% for customer in customers %}
-            <li>
-            <strong>Name:</strong> {{ customer.Name }}<br>
-            <strong>Email:</strong> {{ customer.Adress }}<br>
-            <strong>Total Balance:</strong> {{ customer.Balance }}
-            </li>
-        {% endfor %}
-        </ul>
+        <table class="table table-hover">
+            <thead>
+                <tr class="bg-light">
+                    <th scope="col">Πελάτης</th>
+                    <th scope="col">Διεύθυνση</th>
+                    <th scope="col">Τρέχων Υπόλοιπο</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr class="table-light">
+                    <td><a href="{{ url_for('customer_account') }}">{{ customer.Name }}</a></td>
+                    <td>{{ customer.Address }}</td>
+                    <td>{{ customer.Balance }}</td>
+                </tr>
+                {% endfor %}       
+            </tbody>
+        </table>
 {% endblock content %}
