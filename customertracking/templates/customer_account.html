@@ -4,14 +4,14 @@
     <h3>ΑΦΜ:5392145</h3>
     <h3>Email:k.pap@gmail.com</h3>
     <p>&nbsp;&nbsp;</p>
-    <table class="table table-hover">
+    <table id="customerAccountTable" class="table table-hover sortable">
             <thead>
                 <tr class="bg-light">
-                    <th scope="col">Παραστατικό</th>
-                    <th scope="col">Ημερομηνία</th>
-                    <th scope="col">Συνολικό ποσό</th>
-                    <th scope="col">Καθαρή Αξία</th>
-                    <th scope="col">Αξία Φ.Π.Α</th>
+                    <th scope="col">Παραστατικό <span class="sort-icon">⇅</span> </th>
+                    <th scope="col">Ημερομηνία <span class="sort-icon">⇅</span> </th>
+                    <th scope="col">Συνολικό ποσό <span class="sort-icon">⇅</span> </th>
+                    <th scope="col">Καθαρή Αξία <span class="sort-icon">⇅</span> </th>
+                    <th scope="col">Αξία Φ.Π.Α <span class="sort-icon">⇅</span> </th>
                 </tr>
             </thead>
             <tbody>
@@ -26,4 +26,10 @@
                 {% endfor %}       
             </tbody>
         </table>
+        <script src="https://unpkg.com/tablesort@5.2.1/dist/tablesort.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            new Tablesort(document.getElementById('customerAccountTable'));
+        });
+    </script>
 {% endblock content %}
