@@ -1,21 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
-        <table class="table table-hover">
-            <thead>
-                <tr class="bg-light">
-                    <th scope="col">Πελάτης</th>
-                    <th scope="col">Διεύθυνση</th>
-                    <th scope="col">Τρέχων Υπόλοιπο</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for customer in customers %}
-                <tr class="table-light">
-                    <td><a href="{{ url_for('customer_account') }}">{{ customer.Name }}</a></td>
-                    <td>{{ customer.Address }}</td>
-                    <td>{{ customer.Balance }}</td>
-                </tr>
-                {% endfor %}       
-            </tbody>
-        </table>
+    <h1>Λίστα Πελατών</h1>
+    <p>&nbsp;&nbsp;</p>
+    <table id="customerTable" class="table table-hover">
+        <thead>
+            <tr class="bg-light">
+                <th scope="col">Πελάτης <span class="sort-icon">⇅</span> </th>
+                <th scope="col">Διεύθυνση <span class="sort-icon">⇅</span> </th>
+                <th scope="col">Τρέχων Υπόλοιπο <span class="sort-icon">⇅</span> </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr class="table-light">
+                <td><a href="{{ url_for('customer_account') }}">{{ customer.Name }}</a></td>
+                <td>{{ customer.Address }}</td>
+                <td>{{ customer.Balance }}</td>
+            </tr>
+            {% endfor %}       
+        </tbody>
+    </table>
+
+    <!-- Include Tablesort -->
+    <script src="https://unpkg.com/tablesort@5.2.1/dist/tablesort.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            new Tablesort(document.getElementById('customerTable'));
+        });
+    </script>
 {% endblock content %}
