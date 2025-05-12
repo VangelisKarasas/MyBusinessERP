@@ -42,8 +42,22 @@ class Task(db.Model):
     description = db.Column(db.String(255), nullable=False)
     analytical_description = db.Column(db.String(max))
     price = db.Column(db.Integer, nullable=True)
-    total_balance = db.Column(db.Integer, nullable=True)
     finish_date = db.Column(db.Date, nullable=True)
 
     def __repr__(self):
         return f"Εργασία ('{self.description}' που ολοκληρώθηκε στις '{self.finish_date}' με αξία '{self.price}')"
+
+
+class Document(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(255), nullable=False)
+    customer_id = db.Column(db.Integer, db.ForeignKey(
+        'customer.id'), nullable=False)
+    registration_date = db.Column(db.Date)
+    description = db.Column(db.String(255), nullable=False)
+    net_value = db.Column(db.Integer, nullable=True)
+    vat_value = db.Column(db.Integer, nullable=True)
+    gross_value = db.Column(db.Integer, nullable=True)
+
+    def __repr__(self):
+        return f"Τιμολόγιο ('{self.code}' που ολοκληρώθηκε στις '{self.registration_date}' με αξία '{self.gross_value}')"
