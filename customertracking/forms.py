@@ -31,3 +31,10 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Θυμήσου με')
     submit = SubmitField('Σύνδεση')
+
+
+class DocumentForm(FlaskForm):
+    customer = StringField('Email', validators=[DataRequired(), Email()])
+    gross_value = PasswordField('Password', validators=[DataRequired()])
+    net_value = BooleanField('Θυμήσου με')
+    vat_value = SubmitField('Σύνδεση')
