@@ -30,6 +30,17 @@
                     {% else %}
                         {{ form.gross_value(class="form-control form-control-lg") }}
                     {% endif %}
+                    {{ form.net_value.label(class="form-control-label") }}
+                    {% if form.net_value.errors %}
+                        {{ form.net_value(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.net_value.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.net_value(class="form-control form-control-lg") }}
+                    {% endif %}
                 </div>
                 <div class="form-group">
                     {{ form.registration_date.label(class="form-control-label") }}
@@ -44,11 +55,10 @@
                         {{ form.registration_date(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">       
-                        {{ form.registration_date(class="form-control form-control-lg") }}
-                </div>
             </fieldset>
-            
+            <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+            </div>    
         </form>
     </div>
         <small class="text-muted">
