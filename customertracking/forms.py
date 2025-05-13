@@ -49,6 +49,10 @@ class LoginForm(FlaskForm):
 
 
 class DocumentForm(FlaskForm):
+    document_type = SelectField(
+        u'Τύπος Παραστατικού', choices='ΤΔΑ', validators=[DataRequired()])
+    document_code = StringField(u'Κωδικός Παραστατικού', validators=[
+        DataRequired(), Length(min=2, max=25)])
     customer = SelectField(u'Πελάτης', choices=names)
     gross_value = IntegerField(validators=[DataRequired()])
     net_value = IntegerField(validators=[DataRequired()])
