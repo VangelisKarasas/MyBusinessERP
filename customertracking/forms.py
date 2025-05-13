@@ -54,3 +54,4 @@ class DocumentForm(FlaskForm):
     net_value = IntegerField(validators=[DataRequired()])
     vat_value = IntegerField(validators=[DataRequired()])
     registration_date = DateField(validators=[DataRequired()])
+    submit = SubmitField('Καταχώρηση')
