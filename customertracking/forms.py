@@ -1,7 +1,22 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField, DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from customertracking.models import User
+
+customers = [
+    {
+        'Name': 'Κώστας Παπαδημητρίου',
+        'Balance': 1.345,
+        'Address': 'Καποδιστρίου 64'
+    },
+    {
+        'Name': 'Γιώργος Παπαβασιλείου',
+        'Balance': 10.000,
+        'Address': 'Χατζηζωγίδου 23'
+    }
+]
+
+names = [customer['Name'] for customer in customers]
 
 
 class RegistrationForm(FlaskForm):
@@ -34,7 +49,8 @@ class LoginForm(FlaskForm):
 
 
 class DocumentForm(FlaskForm):
-    customer = StringField('Email', validators=[DataRequired(), Email()])
-    gross_value = PasswordField('Password', validators=[DataRequired()])
-    net_value = BooleanField('Θυμήσου με')
-    vat_value = SubmitField('Σύνδεση')
+    customer = SelectField(u'Πελάτης', choices=names)
+    gross_value = IntegerField(validators=[DataRequired()])
+    net_value = IntegerField(validators=[DataRequired()])
+    vat_value = IntegerField(validators=[DataRequired()])
+    registration_date = DateField(validators=[DataRequired()])
