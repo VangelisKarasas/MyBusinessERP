@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from customertracking import app, db, bcrypt
-from customertracking.forms import RegistrationForm, LoginForm
+from customertracking.forms import RegistrationForm, LoginForm, DocumentForm
 from customertracking.models import User, Customer
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -124,3 +124,13 @@ def task_list():
 @login_required
 def customer_account():
     return render_template('customer_account.html', last_sales=last_sales)
+
+
+@app.route("/document_registry", methods=['GET', 'POST'])
+def document_register():
+    form = DocumentForm()
+    if form.validate_on_submit():
+        flash(
+            f'Δημιουργήθηκε ο λογαριασμός για το χρήστη {form.username.data}!', 'success')
+        return redirect(url_for('login'))
+    return render_template('document.html', title='Εγγραφή', form=form)
