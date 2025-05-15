@@ -5,18 +5,21 @@ from customertracking.models import User
 
 customers = [
     {
+        'id': 1,
         'Name': 'Κώστας Παπαδημητρίου',
         'Balance': 1.345,
         'Address': 'Καποδιστρίου 64'
     },
     {
+        'id': 2,
         'Name': 'Γιώργος Παπαβασιλείου',
         'Balance': 10.000,
         'Address': 'Χατζηζωγίδου 23'
     }
 ]
 
-names = [customer['Name'] for customer in customers]
+names = [(str(customer['id']) + ": " + customer['Name'])
+         for customer in customers]
 
 
 class RegistrationForm(FlaskForm):
@@ -50,7 +53,7 @@ class LoginForm(FlaskForm):
 
 class DocumentForm(FlaskForm):
     document_type = SelectField(
-        u'Τύπος Παραστατικού', choices=[('1', 'ΤΔΑ')], validators=[DataRequired()])
+        u'Τύπος Παρ/κού', choices=[('1', 'ΤΔΑ')], validators=[DataRequired()])
     document_code = StringField(u'Κωδικός Παραστατικού', validators=[
         DataRequired(), Length(min=2, max=25)])
     customer = SelectField(u'Πελάτης', choices=names)
