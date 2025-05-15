@@ -26,6 +26,8 @@ class Customer(db.Model):
                      unique=True, nullable=False)
     email = db.Column(db.String(120),
                       unique=True, nullable=False)
+    vat_category_id = db.Column(
+        db.Integer, db.ForeignKey('vat_category.id'))
     total_balance = db.Column(db.Integer, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'),  nullable=False)
 
