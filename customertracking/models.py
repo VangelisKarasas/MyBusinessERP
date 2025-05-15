@@ -61,3 +61,21 @@ class Document(db.Model):
 
     def __repr__(self):
         return f"Τιμολόγιο ('{self.code}' που ολοκληρώθηκε στις '{self.registration_date}' με αξία '{self.gross_value}')"
+
+
+class DocumentLines(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    document_id = db.Column(db.Integer, db.ForeignKey(
+        'document.id'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey(
+        'item.id'), nullable=False)
+    quantity = db.Column(db.Float, nullable=False)
+    size = db.Column(db.String(30), nullable=False)
+    color = db.Column(db.String(30), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    net_value = db.Column(db.Float, nullable=False)
+    vat_value = db.Column(db.Float)
+    gross_value = db.Column(db.Float, nullable=False)
+
+    def __repr__(self):
+        return f"Τιμολόγιο ('{self.code}' που ολοκληρώθηκε στις '{self.registration_date}' με αξία '{self.gross_value}')"
