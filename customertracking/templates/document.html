@@ -64,30 +64,38 @@
                         {{ form.customer(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
-                    {{ form.gross_value.label(class="form-control-label") }}
-                    {% if form.gross_value.errors %}
-                        {{ form.gross_value(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.gross_value.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.gross_value(class="form-control form-control-lg") }}
-                    {% endif %}
-                    {{ form.net_value.label(class="form-control-label") }}
-                    {% if form.net_value.errors %}
-                        {{ form.net_value(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.net_value.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.net_value(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
+            </fieldset>
+            <fieldset class="form-lines-group">
+                        <table id="itemTable" class="table table-hover sortable">
+                    <thead>
+                        <tr class="bg-light">
+                            <th scope="col">Κωδικός Είδους <span class="sort-icon">⇅</span></th>
+                            <th scope="col">Περιγραφή <span class="sort-icon">⇅</span></th>
+                            <th scope="col">Τιμή <span class="sort-icon">⇅</span></th>
+                            <th scope="col">Καθαρή Αξία <span class="sort-icon">⇅</span></th>
+                            <th scope="col">Αξία ΦΠΑ <span class="sort-icon">⇅</span></th>
+                            <th scope="col">Συνολική Αξία <span class="sort-icon">⇅</span></th>
+                            <th scope="col">Χρώμα <span class="sort-icon">⇅</span></th>
+                            <th scope="col">Μέγεθος <span class="sort-icon">⇅</span></th>
+                            <th scope="col">Ποσότητα <span class="sort-icon">⇅</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr class="table-light">
+                            <td>{{ item.Id }}</td>
+                            <td>{{ item.Description }}</td>
+                            <td>{{ item.Price }}</td>
+                            <td>{{ item.Net_value }}</td>
+                            <td>{{ item.Vat_value }}</td>
+                            <td>{{ item.Gross_value }}</td>
+                            <td>{{ item.Color }}</td>
+                            <td>{{ item.Size }}</td>
+                            <td>{{ item.Quantity }}</td>
+                        </tr>
+                        {% endfor %}       
+                    </tbody>
+                </table>
             </fieldset>
             <div class="form-group">
                     {{ form.submit(class="btn btn-outline-info") }}
