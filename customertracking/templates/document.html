@@ -1,35 +1,55 @@
 {% extends "layout.html" %}
 {% block content %}
+    <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'London')">Βασ.Πληροφορίες</button>
+    <button class="tablinks" onclick="openCity(event, 'Paris')">Περ.Πληροφορίες</button>
+    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Λεπτομέρειες</button>
+    </div>
     <div class="content-section">
         <form method="POST" action="" novalidate>
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Καταχώρηση Παραστατικού</legend>
-                <div class="form-group">
-                    {{ form.document_type.label(class="form-control-label") }}
-                    {% if form.document_type.errors %}
-                        {{ form.document_type(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.document_type.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
+                <div class="three-col">
+                    <div class="col1">
+                        {{ form.document_type.label(class="form-control-label") }}
+                        {% if form.document_type.errors %}
+                            {{ form.document_type(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.document_type.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.document_type(class="form-control form-control-lg") }}
+                        {% endif %}
                         </div>
-                    {% else %}
-                        {{ form.document_type(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.document_code.label(class="form-control-label") }}
-                    {% if form.document_code.errors %}
-                        {{ form.document_code(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.document_code.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.document_code(class="form-control form-control-lg") }}
-                    {% endif %}
+                    <div class="col2">
+                        {{ form.document_code.label(class="form-control-label") }}
+                        {% if form.document_code.errors %}
+                            {{ form.document_code(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.document_code.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.document_code(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="col3">
+                        {{ form.registration_date.label(class="form-control-label") }}
+                        {% if form.registration_date.errors %}
+                            {{ form.registration_date(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.registration_date.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.registration_date(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="form-group">
                     {{ form.customer.label(class="form-control-label") }}
@@ -66,19 +86,6 @@
                         </div>
                     {% else %}
                         {{ form.net_value(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.registration_date.label(class="form-control-label") }}
-                    {% if form.registration_date.errors %}
-                        {{ form.registration_date(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.registration_date.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.registration_date(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
             </fieldset>
