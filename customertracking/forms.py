@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField, DateField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField, DateField, FieldList, FormField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from customertracking.models import User
 
@@ -51,9 +51,18 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Σύνδεση')
 
 
+class DocumentLinesForm(FlaskForm):
+    code = StringField(u'Κωδικός Είδους', validators=[
+        DataRequired(), Length(min=2, max=25)])
+    brand = SelectField(u'Brand', choices=names)
+    net_value = IntegerField(validators=[DataRequired()])
+    vat_value = IntegerField(validators=[DataRequired()])
+    gross_value = IntegerField(validators=[DataRequired()])
+
+
 class DocumentForm(FlaskForm):
     document_type = SelectField(
-        u'Τύπος Παρ/κού', choices=[('1', 'ΤΔΑ')], validators=[DataRequired()])
+        u'Τύπος Παρ/κού', choices=[('1', 'ΤΔΑ'), ('2', 'ΠΤΔ')], validators=[DataRequired()])
     document_code = StringField(u'Κωδικός Παραστατικού', validators=[
         DataRequired(), Length(min=2, max=25)])
     customer = SelectField(u'Πελάτης', choices=names)
@@ -61,4 +70,6 @@ class DocumentForm(FlaskForm):
     net_value = IntegerField(validators=[DataRequired()])
     vat_value = IntegerField(validators=[DataRequired()])
     registration_date = DateField(validators=[DataRequired()])
+    lines = FieldList(FormField(DocumentLinesForm),
+                      min_entries=5, max_entries=50)
     submit = SubmitField('Καταχώρηση')
