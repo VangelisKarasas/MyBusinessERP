@@ -1,9 +1,9 @@
 from flask import render_template, url_for, flash, redirect, request
 from customertracking import app, db, bcrypt
-from customertracking.forms import RegistrationForm, LoginForm, DocumentForm
+from customertracking.forms import RegistrationForm, LoginForm, DocumentForm, DocumentLinesForm
 from customertracking.models import User, Customer
 from flask_login import login_user, current_user, logout_user, login_required
-from customertracking.dbtest import customers, tasks, items, last_sales
+from customertracking.dbtest import customers, tasks, items, last_sales, documents
 
 customers = customers
 tasks = tasks
@@ -85,6 +85,12 @@ def item_list():
     return render_template('item_list.html', items=items)
 
 
+@app.route("/documents")
+@login_required
+def document_list():
+    return render_template('document_list.html', documents=documents)
+
+
 @app.route("/customer_account/ΚώσταςΠαπαδημητρίου")
 @login_required
 def customer_account():
@@ -95,8 +101,19 @@ def customer_account():
 @login_required
 def document_register():
     form = DocumentForm()
+
     if form.validate_on_submit():
-        flash(
-            f'Δημιουργήθηκε ο λογαριασμός για το χρήστη {form.username.data}!', 'success')
-        return redirect(url_for('login'))
-    return render_template('document.html', title='Εγγραφή', form=form)
+        # Access document fields
+        doc_type = form.document_type.data
+        doc_code = form.document_code.data
+        customer = form.customer.data
+
+        # Access lines
+        for line in form.lines.entries:
+            line_data = line.data
+            print("Line:", line_data)  # Save to DB or process
+
+        flash('Καταχωρήθηκε επιτυχώς!', 'success')
+        return redirect(url_for('document_register'))
+
+    return render_template("document_registry.html", form=form)
