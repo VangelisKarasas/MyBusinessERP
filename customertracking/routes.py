@@ -92,6 +92,7 @@ def customer_account():
 
 
 @app.route("/document_registry", methods=['GET', 'POST'])
+@login_required
 def document_register():
     form = DocumentForm()
     if form.validate_on_submit():
