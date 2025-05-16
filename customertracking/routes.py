@@ -34,6 +34,23 @@ tasks = [
     }
 ]
 
+items = [
+    {
+        'Id': '1',
+        'Brand': 'Kraft',
+        'Description': 'Τρυπάνι Δυνατό',
+        'Cost': 130,
+        'Size': 'Large'
+    },
+    {
+        'Id': '2',
+        'Brand': 'FF Group',
+        'Description': 'Γάντια Αντοχής',
+        'Cost': 1.20,
+        'Size': 'S'
+    }
+]
+
 last_sales = [{
     'id': 1,
     'Document_code': 'ΤΔΑ-Α-000001',
@@ -92,8 +109,8 @@ def login():
         next_page = request.args.get('next')
         return redirect(next_page) if next_page else redirect(url_for('home'))
     else:
-        #     flash('Αποτυχία σύνδεσης', 'danger')
         return render_template('login.html', title='Σύνδεση', form=form)
+        flash('Αποτυχία σύνδεσης', 'danger')
 
 
 @app.route("/logout")
@@ -118,6 +135,12 @@ def customer_list():
 @login_required
 def task_list():
     return render_template('task_list.html', tasks=tasks)
+
+
+@app.route("/items")
+@login_required
+def item_list():
+    return render_template('item_list.html', items=items)
 
 
 @app.route("/customer_account/ΚώσταςΠαπαδημητρίου")
