@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Λίστα Ειδών</h1>
+    <p>&nbsp;&nbsp;</p>
+        <table id="itemTable" class="table table-hover sortable">
+            <thead>
+                <tr class="bg-light">
+                    <th scope="col">Κωδικός Είδους <span class="sort-icon">⇅</span></th>
+                    <th scope="col">Brand <span class="sort-icon">⇅</span></th>
+                    <th scope="col">Περιγραφή <span class="sort-icon">⇅</span></th>
+                    <th scope="col">Τιμή <span class="sort-icon">⇅</span></th>
+                    <th scope="col">Μέγεθος <span class="sort-icon">⇅</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr class="table-light">
+                    <td>{{ item.Id }}</td>
+                    <td>{{ item.Brand }}</td>
+                    <td>{{ item.Description }}</td>
+                    <td>{{ item.Cost }}</td>
+                    <td>{{ item.Size }}</td>
+                </tr>
+                {% endfor %}       
+            </tbody>
+        </table>
+
+        <!-- Include Tablesort -->
+    <script src="https://unpkg.com/tablesort@5.2.1/dist/tablesort.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            new Tablesort(document.getElementById('itemTable'));
+        });
+    </script>
+{% endblock content %}
