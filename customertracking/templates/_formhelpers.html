@@ -1,0 +1,11 @@
+{% macro render_field(field, label_text=None) %}
+  <div class="form-group">
+    {% if label_text is not none %}
+      {{ field.label(class="form-control-label") }}
+    {% endif %}
+    {{ field(class="form-control") }}
+    {% for error in field.errors %}
+      <span class="text-danger">{{ error }}</span>
+    {% endfor %}
+  </div>
+{% endmacro %}
