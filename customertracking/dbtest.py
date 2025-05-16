@@ -61,3 +61,22 @@ last_sales = [{
     'Net_value': 100,
     'Vat_amount': 24
 }]
+
+documents = [{
+    'id': 1,
+    'code': 'ΤΔΑ-Α-000001',
+    'date': '01-01-2025',
+    'customer': 'Τερζής Δημήτρης',
+    'net_value': 1000,
+    'vat_value': 240,
+    'gross_value': 240
+},
+    {
+    'id': 2,
+    'code': 'ΤΔΑ-Α-000002',
+    'date': '01-01-2025',
+    'customer': 'Χατζηδημητρίου Κωνσταντίνος',
+    'net_value': 100,
+    'vat_value': 24,
+    'gross_value': 24
+}]
