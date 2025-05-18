@@ -1,91 +1,37 @@
 {% extends "layout.html" %}
-{% from "_formhelpers.html" import render_field %}
-
 {% block content %}
-<div class="content-section">
-    <form method="POST" action="" novalidate>
-        {{ form.hidden_tag() }}
+    <h1>Λίστα Παραστατικών</h1>
+    <p>&nbsp;&nbsp;</p>
+    <table id="documentTable" class="table table-hover">
+        <thead>
+            <tr class="bg-light">
+                <th scope="col">Παραστατικό <span class="sort-icon">⇅</span> </th>
+                <th scope="col">Ημερομηνία <span class="sort-icon">⇅</span> </th>
+                <th scope="col">Πελάτης <span class="sort-icon">⇅</span> </th>
+                <th scope="col">Καθαρή Αξία <span class="sort-icon">⇅</span> </th>
+                <th scope="col">Αξία Φ.Π.Α <span class="sort-icon">⇅</span> </th>
+                <th scope="col">Συνολική Αξία <span class="sort-icon">⇅</span> </th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for document in documents %}
+                <tr class="table-light">
+                    <td>{{ document.code }}</td>
+                    <td>{{ document.date }}</td>
+                    <td>{{ document.customer }}</td>
+                    <td>{{ document.net_value }}</td>
+                    <td>{{ document.vat_value }}</td>
+                    <td>{{ document.gross_value }}</td>
+                </tr>
+                {% endfor %}       
+            </tbody>
+    </table>
 
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Καταχώρηση Παραστατικού</legend>
-
-            <div class="three-col">
-                <div class="col1">{{ render_field(form.document_type) }}</div>
-                <div class="col2">{{ render_field(form.document_code) }}</div>
-                <div class="col3">{{ render_field(form.registration_date) }}</div>
-            </div>
-
-            {{ render_field(form.customer) }}
-        </fieldset>
-
-        <fieldset class="form-lines-group" style="overflow-x:auto;">
-            <table id="itemTable" class="table table-hover sortable">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Brand</th>
-                        <th>Net</th>
-                        <th>VAT</th>
-                        <th>Gross</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody id="linesContainer">
-                    {% for line_form in form.lines %}
-                    <tr class="line-row">
-                        <td>{{ render_field(line_form.code, label_text=None) }}</td>
-                        <td>{{ render_field(line_form.brand, label_text=None) }}</td>
-                        <td>{{ render_field(line_form.net_value, label_text=None) }}</td>
-                        <td>{{ render_field(line_form.vat_value, label_text=None) }}</td>
-                        <td>{{ render_field(line_form.gross_value, label_text=None) }}</td>
-                        <td><button type="button" class="btn btn-sm btn-danger remove-line">X</button></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <button type="button" id="addLineBtn" class="btn btn-secondary">+ Προσθήκη Γραμμής</button>
-        </fieldset>
-
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
-        </div>
-    </form>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const addButton = document.getElementById('addLineBtn');
-    const linesContainer = document.getElementById('linesContainer');
-    let lineIndex = {{ form.lines|length }};
-
-    addButton.addEventListener('click', function () {
-        const newRow = document.createElement('tr');
-        newRow.classList.add('line-row');
-        newRow.innerHTML = `
-            <td><input type="text" name="lines-${lineIndex}-code" class="form-control" /></td>
-            <td><input type="text" name="lines-${lineIndex}-brand" class="form-control" /></td>
-            <td><input type="number" step="0.01" name="lines-${lineIndex}-net_value" class="form-control" /></td>
-            <td><input type="number" step="0.01" name="lines-${lineIndex}-vat_value" class="form-control" /></td>
-            <td><input type="number" step="0.01" name="lines-${lineIndex}-gross_value" class="form-control" /></td>
-            <td><button type="button" class="btn btn-sm btn-danger remove-line">X</button></td>
-        `;
-        linesContainer.appendChild(newRow);
-        lineIndex++;
-    })
-    
-    linesContainer.addEventListener('click', function (e) {
-        if (e.target.classList.contains('remove-line')) {
-            const row = e.target.closest('tr');
-            if (linesContainer.rows.length > 1) {
-                row.remove();
-            } else {
-                alert("At least one line is required.");
-            }
-        }
-        
-    })
-    
-    ;;
-});
-</script>
+    <!-- Include Tablesort -->
+    <script src="https://unpkg.com/tablesort@5.2.1/dist/tablesort.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            new Tablesort(document.getElementById('documentTable'));
+        });
+    </script>
 {% endblock content %}
-
