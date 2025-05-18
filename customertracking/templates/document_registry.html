@@ -18,7 +18,7 @@
             {{ render_field(form.customer) }}
         </fieldset>
 
-        <fieldset class="form-lines-group">
+        <fieldset class="form-lines-group" style="overflow-x:auto;">
             <table id="itemTable" class="table table-hover sortable">
                 <thead>
                     <tr>
@@ -81,7 +81,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert("At least one line is required.");
             }
         }
-    });;
+        
+    })
+    
+    ;;
 });
 </script>
 {% endblock content %}
