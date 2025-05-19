@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Λίστα Ειδών</h1>
+    <h1>Λίστα Ειδών<a href="{{ url_for('item_register') }}" class="btn btn-secondary" id="addCustLineBtn">
+    + Προσθήκη Νέου Είδους
+  </a> </h1>
     <p>&nbsp;&nbsp;</p>
         <table id="itemTable" class="table table-hover sortable">
             <thead>
@@ -15,11 +17,11 @@
             <tbody>
                 {% for item in items %}
                 <tr class="table-light">
-                    <td>{{ item.Id }}</td>
-                    <td>{{ item.Brand }}</td>
-                    <td>{{ item.Description }}</td>
-                    <td>{{ item.Cost }}</td>
-                    <td>{{ item.Size }}</td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.brand }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.size }}</td>
                 </tr>
                 {% endfor %}       
             </tbody>
