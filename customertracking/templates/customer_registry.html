@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="" novalidate>
+        {{ form.hidden_tag() }}
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Καταχώρηση Πελάτη</legend>
+            <div class="three-col">
+                <div class="col1">{{ render_field(form.id,label_text='Κωδικός Πελάτη') }}</div>
+                <div class="col2">{{ render_field(form.name,label_text='Επωνυμία') }}</div>
+                <div class="col3">{{ render_field(form.email,label_text='Email')}}</div>
+            </div>
+
+            <div class="three-col">
+                <div class="col1">{{ render_field(form.tax_number,label_text='ΑΦΜ') }}</div>
+                <div class="col2">{{ render_field(form.total_balance,label_text='Υπόλοιπο') }}</div>
+            </div>
+        <p>&nbsp;&nbsp;</p>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
