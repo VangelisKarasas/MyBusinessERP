@@ -12,6 +12,7 @@
                     <th scope="col">Περιγραφή <span class="sort-icon">⇅</span></th>
                     <th scope="col">Τιμή <span class="sort-icon">⇅</span></th>
                     <th scope="col">Μέγεθος <span class="sort-icon">⇅</span></th>
+                    <th scope="col"></span></th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +23,7 @@
                     <td>{{ item.description }}</td>
                     <td>{{ item.price }}</td>
                     <td>{{ item.size }}</td>
+                    <td><button type="button" class="btn btn-sm btn-danger remove-line">X</button></td>
                 </tr>
                 {% endfor %}       
             </tbody>
