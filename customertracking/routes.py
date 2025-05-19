@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from customertracking import app, db, bcrypt
-from customertracking.forms import RegistrationForm, LoginForm, DocumentForm, DocumentLinesForm
+from customertracking.forms import RegistrationForm, LoginForm, DocumentForm, DocumentLinesForm, CustomerForm, ItemForm
 from customertracking.models import User, Customer
 from flask_login import login_user, current_user, logout_user, login_required
 from customertracking.dbtest import customers, tasks, items, last_sales, documents
@@ -101,7 +101,6 @@ def customer_account():
 @login_required
 def document_register():
     form = DocumentForm()
-
     if form.validate_on_submit():
         # Access document fields
         doc_type = form.document_type.data
@@ -117,3 +116,35 @@ def document_register():
         return redirect(url_for('document_register'))
 
     return render_template("document_registry.html", form=form)
+
+
+@app.route("/customer_registry", methods=['GET', 'POST'])
+@login_required
+def customer_register():
+    form = CustomerForm()
+    if form.validate_on_submit():
+        # Access document fields
+        doc_type = form.document_type.data
+        doc_code = form.document_code.data
+        customer = form.customer.data
+
+        flash('Καταχωρήθηκε επιτυχώς!', 'success')
+        return redirect(url_for('customer_register'))
+
+    return render_template("customer_registry.html", form=form)
+
+
+@app.route("/item_registry", methods=['GET', 'POST'])
+@login_required
+def item_register():
+    form = ItemForm()
+    if form.validate_on_submit():
+        # Access document fields
+        doc_type = form.document_type.data
+        doc_code = form.document_code.data
+        customer = form.customer.data
+
+        flash('Καταχωρήθηκε επιτυχώς!', 'success')
+        return redirect(url_for('item_register'))
+
+    return render_template("item_registry.html", form=form)
