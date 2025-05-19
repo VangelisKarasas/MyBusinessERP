@@ -1,11 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Λίστα Πελατών</h1>
+    <h1>Λίστα Πελατών <a href="{{ url_for('customer_register') }}" class="btn btn-secondary" id="addCustLineBtn">
+    + Προσθήκη Νέου Πελάτη
+  </a></h1>
+    
     <p>&nbsp;&nbsp;</p>
     <table id="customerTable" class="table table-hover">
         <thead>
             <tr class="bg-light">
-                <th scope="col">Πελάτης <span class="sort-icon">⇅</span> </th>
+                <th scope="col">Κωδικός Πελάτη <span class="sort-icon">⇅</span> </th>
+                <th scope="col">Περιγραφή Πελάτη <span class="sort-icon">⇅</span> </th>
                 <th scope="col">Διεύθυνση <span class="sort-icon">⇅</span> </th>
                 <th scope="col">Τρέχων Υπόλοιπο <span class="sort-icon">⇅</span> </th>
             </tr>
@@ -13,6 +17,7 @@
         <tbody>
             {% for customer in customers %}
             <tr class="table-light">
+                <td>{{ customer.id }}</td>
                 <td><a href="{{ url_for('customer_account') }}">{{ customer.Name }}</a></td>
                 <td>{{ customer.Address }}</td>
                 <td>{{ customer.Balance }}</td>
