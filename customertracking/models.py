@@ -82,8 +82,7 @@ class DocumentLine(db.Model):
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    code = db.Column(db.String(255), nullable=False)
+    brand = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     size = db.Column(db.String(30), nullable=False)
-    color = db.Column(db.String(30), nullable=False)
     price = db.Column(db.Float, nullable=False)
