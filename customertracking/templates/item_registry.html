@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="" novalidate>
+        {{ form.hidden_tag() }}
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Καταχώρηση Είδους</legend>
+
+            <div class="five-col">
+                <div class="col1">{{ render_field(form.id,label_text='Κωδικός Είδους') }}</div>
+                <div class="col2">{{ render_field(form.description,label_text='Περιγραφή Είδους') }}</div>
+                <div class="col3">{{ render_field(form.brand_description,label_text='Brand')}}</div>
+                <div class="col4">{{ render_field(form.price,label_text='Τιμή')}}</div>
+                <div class="col5">{{ render_field(form.size,label_text='Μέγεθος')}}</div>
+            </div>
+        <p>&nbsp;&nbsp;</p>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
