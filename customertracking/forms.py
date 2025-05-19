@@ -92,7 +92,7 @@ class ItemForm(FlaskForm):
     description = StringField(u'Περιγραφή Είδους', validators=[
         DataRequired(), Length(min=2, max=25)])
     brand_description = SelectField(u'Brand Είδους', choices=[
-                                    ('1', 'Nike'), ('2', 'Adidas')])
+                                    ('1', 'Kraft'), ('2', 'FF Group')])
     price = IntegerField()
     size = StringField(u'Μέγεθος', validators=[
         DataRequired()])
