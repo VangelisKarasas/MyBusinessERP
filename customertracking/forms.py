@@ -51,9 +51,20 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Σύνδεση')
 
 
+class CustomerForm(FlaskForm):
+    id = StringField('Κωδικός', validators=[DataRequired()])
+    name = StringField('Επωνυμία', validators=[DataRequired()])
+    email = StringField('Email', validators=[Email()])
+    tax_number = StringField('ΑΦΜ')
+    total_balance = IntegerField('Υπόλοιπο')
+    submit = SubmitField('Καταχώρηση')
+
+
 class DocumentLinesForm(FlaskForm):
     code = StringField(u'Κωδικός Είδους', validators=[
         DataRequired(), Length(min=2, max=25)])
+    description = StringField(u'Περιγραφή Είδους', validators=[
+        DataRequired(), Length(min=2, max=60)])
     brand = SelectField(u'Brand', choices=names)
     net_value = IntegerField(validators=[DataRequired()])
     vat_value = IntegerField(validators=[DataRequired()])
@@ -72,4 +83,17 @@ class DocumentForm(FlaskForm):
     registration_date = DateField(validators=[DataRequired()])
     lines = FieldList(FormField(DocumentLinesForm),
                       min_entries=5, max_entries=50)
+    submit = SubmitField('Καταχώρηση')
+
+
+class ItemForm(FlaskForm):
+    id = StringField(u'Κωδικός Είδους', validators=[
+        DataRequired(), Length(min=2, max=25)])
+    description = StringField(u'Περιγραφή Είδους', validators=[
+        DataRequired(), Length(min=2, max=25)])
+    brand_description = SelectField(u'Brand Είδους', choices=[
+                                    ('1', 'Nike'), ('2', 'Adidas')])
+    price = IntegerField()
+    size = StringField(u'Μέγεθος', validators=[
+        DataRequired()])
     submit = SubmitField('Καταχώρηση')
