@@ -23,7 +23,7 @@
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-        <div class="container">
+        <!-- <div class="container"> -->
           <a class="navbar-brand mr-3" href="/">MyBusiness</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -52,10 +52,11 @@
               </form> -->
             </div>
           </div>
-        </div>
+        <!-- </div> -->
       </nav>
     </header>
-    <main role="main" class="container">
+    <main role="main">
+    <!-- <main role="main" class="container"> -->
       <div class="row">
         <div class="col-md-9">
         {% with messages = get_flashed_messages(with_categories=true) %}
