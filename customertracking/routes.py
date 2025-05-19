@@ -1,13 +1,14 @@
 from flask import render_template, url_for, flash, redirect, request
 from customertracking import app, db, bcrypt
 from customertracking.forms import RegistrationForm, LoginForm, DocumentForm, DocumentLinesForm, CustomerForm, ItemForm
-from customertracking.models import User, Customer
+from customertracking.models import User, Customer, Item
 from flask_login import login_user, current_user, logout_user, login_required
 from customertracking.dbtest import customers, tasks, items, last_sales, documents
 
-customers = customers
+
+# customers = customers
 tasks = tasks
-items = items
+# items = items
 last_sales = last_sales
 
 
@@ -51,8 +52,8 @@ def login():
         next_page = request.args.get('next')
         return redirect(next_page) if next_page else redirect(url_for('home'))
     else:
-        return render_template('login.html', title='Σύνδεση', form=form)
         flash('Αποτυχία σύνδεσης', 'danger')
+        return render_template('login.html', title='Σύνδεση', form=form)
 
 
 @app.route("/logout")
@@ -70,6 +71,7 @@ def account():
 @app.route("/customers")
 @login_required
 def customer_list():
+    customers = Customer.query.filter_by(user_id=current_user.id).all()
     return render_template('customer_list.html', customers=customers)
 
 
@@ -82,6 +84,7 @@ def task_list():
 @app.route("/items")
 @login_required
 def item_list():
+    items = Item.query.all()
     return render_template('item_list.html', items=items)
 
 
@@ -124,10 +127,10 @@ def customer_register():
     form = CustomerForm()
     if form.validate_on_submit():
         # Access document fields
-        doc_type = form.document_type.data
-        doc_code = form.document_code.data
-        customer = form.customer.data
-
+        customer = Customer(id=form.id.data, name=form.name.data, email=form.email.data,
+                            tax_number=form.tax_number.data, total_balance=form.total_balance.data, user_id=current_user.id)
+        db.session.add(customer)
+        db.session.commit()
         flash('Καταχωρήθηκε επιτυχώς!', 'success')
         return redirect(url_for('customer_register'))
 
@@ -140,10 +143,10 @@ def item_register():
     form = ItemForm()
     if form.validate_on_submit():
         # Access document fields
-        doc_type = form.document_type.data
-        doc_code = form.document_code.data
-        customer = form.customer.data
-
+        item = Item(brand=form.brand_description.data, description=form.description.data,
+                    size=form.size.data, price=form.price.data)
+        db.session.add(item)
+        db.session.commit()
         flash('Καταχωρήθηκε επιτυχώς!', 'success')
         return redirect(url_for('item_register'))
 
