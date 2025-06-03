@@ -17,7 +17,7 @@
         <tbody>
             {% for customer in customers %}
             <tr class="table-light">
-                <td><a href="{{ url_for('customer_account') }}">{{ customer.id }}</a></td>
+                <td><a href="{{ url_for('customer_account_dep', id=customer.id) }}">{{ customer.id }}</a></td>
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.email }}</td>
                 <td>{{ customer.total_balance }}</td>
