@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Επωνυμία:Κώστας Παπαδημητρίου</h1>
-    <h3>ΑΦΜ:5392145</h3>
-    <h3>Email:k.pap@gmail.com</h3>
+    <h1>Κωδικός:{{customer.id}}</h1>
+    <h1>Επωνυμία:{{customer.name}}</h1>
+    <h3>ΑΦΜ:{{customer.tax_number}}</h3>
+    <h3>Email:{{customer.email}}</h3>
     <h3>Contact Person:Κώστας Παπαδημητρίου</h3>
     <p>&nbsp;&nbsp;</p>
     <table id="customerAccountTable" class="table table-hover sortable">
