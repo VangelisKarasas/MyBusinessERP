@@ -52,6 +52,14 @@
     </form>
 </div>
 <script>
+    const itemSuggestions = {{ suggestions | tojson }};
+</script>
+<style>
+    .live-suggest div:hover {
+        background-color: #f1f1f1;
+    }
+    </style>
+<script>
 document.addEventListener('DOMContentLoaded', function () {
     const addButton = document.getElementById('addLineBtn');
     const linesContainer = document.getElementById('linesContainer');
@@ -83,7 +91,44 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         
     })
+
+        
+    document.addEventListener('input', function (e) {
+        if (e.target && e.target.name.includes('code')) {
+            const input = e.target;
+            const term = input.value.toLowerCase();
     
+            let dropdown = input.nextElementSibling;
+    
+            if (!dropdown || !dropdown.classList.contains('live-suggest')) {
+                dropdown = document.createElement('div');
+                dropdown.classList.add('live-suggest');
+                dropdown.style.position = 'absolute';
+                dropdown.style.zIndex = '1000';
+                dropdown.style.backgroundColor = '#fff';
+                dropdown.style.border = '1px solid #ccc';
+                dropdown.style.width = input.offsetWidth + 'px';
+                input.parentNode.appendChild(dropdown);
+            }
+    
+            dropdown.innerHTML = '';
+            if (term.length > 0) {
+                itemSuggestions
+                    .filter(s => s.toLowerCase().includes(term))
+                    .forEach(match => {
+                        const item = document.createElement('div');
+                        item.textContent = match;
+                        item.style.padding = '4px';
+                        item.style.cursor = 'pointer';
+                        item.addEventListener('click', () => {
+                            input.value = match;
+                            dropdown.innerHTML = '';
+                        });
+                        dropdown.appendChild(item);
+                    });
+            }
+        }
+    });
     ;;
 });
 </script>
