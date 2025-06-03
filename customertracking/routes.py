@@ -100,10 +100,19 @@ def customer_account():
     return render_template('customer_account.html', last_sales=last_sales)
 
 
+@app.route("/customer_account/<int:id>", methods=['GET', 'POST'])
+@login_required
+def customer_account_dep(id):
+    customer = Customer.query.filter_by(id=id).first_or_404()
+    return render_template('customer_account.html', customer=customer, last_sales=last_sales)
+
+
 @app.route("/document_registry", methods=['GET', 'POST'])
 @login_required
 def document_register():
     form = DocumentForm()
+    items = Item.query.with_entities(Item.description).distinct().all()
+    suggestions = [i.description for i in items]
     if form.validate_on_submit():
         # Access document fields
         doc_type = form.document_type.data
@@ -118,7 +127,7 @@ def document_register():
         flash('Καταχωρήθηκε επιτυχώς!', 'success')
         return redirect(url_for('document_register'))
 
-    return render_template("document_registry.html", form=form)
+    return render_template("document_registry.html", form=form, suggestions=suggestions)
 
 
 @app.route("/customer_registry", methods=['GET', 'POST'])
